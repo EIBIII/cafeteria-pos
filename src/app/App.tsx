@@ -202,13 +202,31 @@ export default function App() {
         id: c.id, name: c.name, icon: c.icon ?? '☕',
       }));
 
-      // sizes, milkTypes y extras los deriva syncLegacy() en MenuConfig.tsx
-      // a partir de los grupos con kind === 'size' | 'milk' | 'extra'
+      // Derivar sizes, milkTypes y extras desde los grupos con kind correspondiente
+      const dbSizes = mappedGroups
+        .filter((g: any) => g.kind === 'size')
+        .flatMap((g: any) => g.options.map((o: any) => ({
+          id: o.id, name: o.name, extraPrice: o.extraPrice,
+          appliesTo: g.appliesTo, inputType: g.inputType, required: g.required,
+        })));
+      const dbMilkTypes = mappedGroups
+        .filter((g: any) => g.kind === 'milk')
+        .flatMap((g: any) => g.options.map((o: any) => ({
+          id: o.id, name: o.name, extraPrice: o.extraPrice,
+          appliesTo: g.appliesTo, inputType: g.inputType, required: g.required,
+        })));
+      const dbExtras = mappedGroups
+        .filter((g: any) => g.kind === 'extra')
+        .flatMap((g: any) => g.options.map((o: any) => ({
+          id: o.id, name: o.name, price: o.extraPrice,
+          appliesTo: g.appliesTo, inputType: g.inputType, required: g.required,
+        })));
+
       setMenuConfig({
         categories:     dbCategories,
-        sizes:          [],
-        milkTypes:      [],
-        extras:         [],
+        sizes:          dbSizes,
+        milkTypes:      dbMilkTypes,
+        extras:         dbExtras,
         modifierGroups: mappedGroups,
       });
 
