@@ -147,7 +147,7 @@ export default function App() {
     setChecking(true);
     setApiError('');
     try {
-      await healthCheck();
+      await fetch('https://cafetecnm.up.railway.app/health', { signal: AbortSignal.timeout(5000) }).then(r => { if (!r.ok) throw new Error(); return r.json(); });
       setApiOnline(true);
     } catch {
       setApiOnline(false);
