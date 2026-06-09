@@ -69,7 +69,7 @@ export default function ProductPanel({ products, onAddToOrder, menuConfig, inven
   const [selectedCategoryId, setSelectedCategoryId] = useState<string>(categories[0]?.id || 'hot');
   const [selectedProduct,    setSelectedProduct]    = useState<Product | null>(null);
   const [size,               setSize]               = useState<string>(sizes[0]?.id || 'chico');
-  const [milkType,           setMilkType]           = useState<string>(milkTypes[0]?.id || 'entera');
+  const [milkType, setMilkType] = useState<string>('');
   const [selectedExtras,     setSelectedExtras]     = useState<string[]>([]);
 
   const catId = selectedProduct?.category ?? '';
