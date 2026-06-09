@@ -1,6 +1,5 @@
 FROM node:20-alpine
 
-# Prisma necesita OpenSSL y compatibilidad con libc
 RUN apk add --no-cache openssl libc6-compat
 
 WORKDIR /app
@@ -13,7 +12,8 @@ COPY src ./src
 COPY tsconfig.json ./
 
 RUN npx prisma generate
+RUN npm run build
 
 EXPOSE 4000
 
-CMD ["npm", "run", "dev"]
+CMD ["node", "dist/index.js"]
